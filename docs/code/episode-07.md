@@ -104,13 +104,13 @@ namespace BuildFlow.Application.Abstractions;
 Inside
 
 ```text
-Application.Abstractions
+SharedKernel
 ```
 
 run
 
 ```bash
-dotnet add src/BuildingBlocks/Application.Abstractions package MediatR.Contracts
+dotnet add src/SharedKernel package MediatR.Contracts --version 2.0.1
 ```
 
 ---

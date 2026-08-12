@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FEE2D1BF-C8D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildFlow.SharedKernel", "src\SharedKernel\BuildFlow.SharedKernel.csproj", "{BBBF14F6-7CED-4B1B-8732-4546817E94BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{29FA85BF-E37E-41C6-AF98-9F63D890874B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildFlow.Application.Abstractions", "src\BuildingBlocks\Application.Abstractions\BuildFlow.Application.Abstractions.csproj", "{6C40146B-C6FE-4C56-93F0-9D68AEE6D57E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +24,14 @@ Global
 		{BBBF14F6-7CED-4B1B-8732-4546817E94BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBBF14F6-7CED-4B1B-8732-4546817E94BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBBF14F6-7CED-4B1B-8732-4546817E94BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C40146B-C6FE-4C56-93F0-9D68AEE6D57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C40146B-C6FE-4C56-93F0-9D68AEE6D57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C40146B-C6FE-4C56-93F0-9D68AEE6D57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C40146B-C6FE-4C56-93F0-9D68AEE6D57E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BBBF14F6-7CED-4B1B-8732-4546817E94BC} = {FEE2D1BF-C8D9-4A9E-8AB9-298B11F9A49B}
+		{29FA85BF-E37E-41C6-AF98-9F63D890874B} = {FEE2D1BF-C8D9-4A9E-8AB9-298B11F9A49B}
+		{6C40146B-C6FE-4C56-93F0-9D68AEE6D57E} = {29FA85BF-E37E-41C6-AF98-9F63D890874B}
 	EndGlobalSection
 EndGlobal

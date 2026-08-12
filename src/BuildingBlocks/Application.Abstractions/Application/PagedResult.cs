@@ -1,4 +1,4 @@
-﻿namespace BuildFlow.SharedKernel.Application;
+﻿namespace BuildFlow.BuildingBlocks.Application;
 
 public record PagedResult<T>(
     IReadOnlyList<T> Items,
