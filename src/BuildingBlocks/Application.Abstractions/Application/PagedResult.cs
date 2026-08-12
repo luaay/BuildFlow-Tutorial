@@ -1,4 +1,4 @@
-﻿namespace BuildFlow.BuildingBlocks.Application;
+﻿namespace BuildFlow.Application.Abstractions;
 
 public record PagedResult<T>(
     IReadOnlyList<T> Items,
