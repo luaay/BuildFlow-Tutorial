@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "episode-04.5.md",
+                "file": "episode-07.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "episode-04.5"
+              "title": "episode-07"
             }
           }
         ]
@@ -80,7 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "43af03c31611c305",
@@ -187,6 +187,7 @@
   },
   "active": "762240784bf6ad83",
   "lastOpenFiles": [
+    "episode-04.5.md",
     "episode-05.md"
   ]
 }

@@ -32,10 +32,7 @@ mkdir src/BuildingBlocks
 # Step 2 — Create Application.Abstractions Project
 
 ```bash
-dotnet new classlib ^
---name BuildFlow.Application.Abstractions ^
---output src/BuildingBlocks/Application.Abstractions ^
---framework net8.0
+dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application.Abstractions --framework net8.0
 ```
 
 ---
