@@ -183,16 +183,13 @@ src/
 ```bash
 mkdir src/BuildingBlocks
 
-dotnet new classlib ^
---name BuildFlow.Application.Abstractions ^
---output src/BuildingBlocks/Application.Abstractions ^
---framework net8.0
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
 
 del "src\BuildingBlocks\Application.Abstractions\Class1.cs"
 
 dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
 
-dotnet add src/BuildingBlocks/Application.Abstractions package MediatR.Contracts
+dotnet add src/SharedKernel package MediatR.Contracts --version 2.0.1
 
 dotnet build
 ```
