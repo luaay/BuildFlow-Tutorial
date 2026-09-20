@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Episode-05-5.md",
+                "file": "episode-09B.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Episode-05-5"
+              "title": "episode-09B"
             }
           }
         ]
@@ -187,10 +187,13 @@
   },
   "active": "762240784bf6ad83",
   "lastOpenFiles": [
+    "episode-09a.md",
+    "episode-09B.md",
+    "episode-09.md",
+    "Episode-05-5.md",
     "episode-04.5.md",
     "episode-05.md",
     "episode-07.md",
-    "episode-09.md",
     "episode-08.md",
     "New Text Document.txt",
     "episode-08-en.md"
