@@ -1,46 +1,37 @@
 ﻿namespace BuildFlow.SharedKernel.Domain;
 
-public abstract class Entity : IEquatable<Entity>
+// TId = نوع الـ ID (سيكون strongly-typed مثل UserId, DocumentId)
+// Generic لأن كل aggregate له نوع id خاص به
+public abstract class Entity<TId> : IEquatable<Entity<TId>>
+    where TId : notnull
 {
-    public Guid Id { get; protected set; }
+    public TId Id { get; protected set; } = default!;
 
-    protected Entity(Guid id)
+    protected Entity(TId id)
     {
         Id = id;
     }
 
-    // Required by EF Core
+    // constructor بلا معاملات — يحتاجه EF Core للـ materialization
     protected Entity()
     {
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is Entity entity &&
-               Id.Equals(entity.Id);
+        if (obj is not Entity<TId> other) return false;
+        if (ReferenceEquals(this, other)) return true;
+        if (GetType() != other.GetType()) return false;
+        return Id.Equals(other.Id);
     }
 
-    public bool Equals(Entity? other)
-    {
-        return Equals((object?)other);
-    }
+    public bool Equals(Entity<TId>? other) => Equals((object?)other);
 
-    public static bool operator ==(
-        Entity? left,
-        Entity? right)
-    {
-        return Equals(left, right);
-    }
+    public override int GetHashCode() => Id.GetHashCode();
 
-    public static bool operator !=(
-        Entity? left,
-        Entity? right)
-    {
-        return !Equals(left, right);
-    }
+    public static bool operator ==(Entity<TId>? left, Entity<TId>? right) =>
+        left?.Equals(right) ?? right is null;
 
-    public override int GetHashCode()
-    {
-        return Id.GetHashCode();
-    }
+    public static bool operator !=(Entity<TId>? left, Entity<TId>? right) =>
+        !(left == right);
 }
