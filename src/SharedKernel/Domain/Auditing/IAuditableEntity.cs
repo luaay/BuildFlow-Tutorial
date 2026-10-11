@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BuildFlow.SharedKernel.Domain.Auditing;
 
-namespace BuildFlow.SharedKernel.Domain.Auditing
+// عقد التدقيق، أي كيان يطبّقه تُملأ حقوله تلقائياً في طبقة البيانات
+public interface IAuditableEntity
 {
-    internal class IAuditableEntity
-    {
-    }
+    DateTime CreatedAtUtc { get; set; }
+    Guid CreatedBy { get; set; }
+    DateTime? ModifiedAtUtc { get; set; }
+    Guid? ModifiedBy { get; set; }
 }

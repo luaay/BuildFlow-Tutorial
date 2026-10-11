@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BuildFlow.SharedKernel.Domain.Auditing;
 
-namespace BuildFlow.SharedKernel.Domain.Auditing
+// عقد الحذف الناعم، السجلّ يُعلَّم كمحذوف بدل محوه فعلياً
+public interface ISoftDelete
 {
-    internal class ISoftDelete
-    {
-    }
+    bool IsDeleted { get; set; }
+    DateTime? DeletedAtUtc { get; set; }
+    Guid? DeletedBy { get; set; }
 }
