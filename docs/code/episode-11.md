@@ -59,17 +59,39 @@ Abstractions.
 
 Create the class library under `src/BuildingBlocks/Application`.
 
-Run:
+Run the following commands **separately**, not as one combined command:
 
-``` bash
+```
 dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
-del "src\\BuildingBlocks\\Application\\Class1.cs"
+```
+
+The command creates the class library. If the project already exists, the CLI may report that the project directory or files already exist. In that case, do not recreate or overwrite the existing project unnecessarily.
+
+Next, remove the generated `Class1.cs` template file if it exists.
+
+**Important:** The `del` command is for Windows Command Prompt. Since these commands are being executed in Git Bash, use:
+
+```
+rm -f src/BuildingBlocks/Application/Class1.cs
+```
+
+Finally, add the project to the solution:
+
+```
 dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
 ```
 
-The generated `Class1.cs` file is removed because it is only a template
-file.
+If the project is already included in the solution, the CLI will report a message similar to:
 
+```
+Solution ... already contains project BuildFlow.Application.Abstractions
+```
+
+This is expected when the project has already been added. It does not mean that the project needs to be added again.
+
+In the terminal output shown in this tutorial, the class library was created successfully, but `del` failed because Git Bash does not recognize that Windows command. The solution command also reported that the project was already included in the solution.
+
+**At this point, verify that the project file exists and that the solution already includes it before proceeding to the next step.**
 ## 4. Add the SharedKernel Reference
 
 The Application Abstractions project needs access to SharedKernel types.
