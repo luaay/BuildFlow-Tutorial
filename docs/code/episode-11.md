@@ -2,9 +2,9 @@
 
 ## Application Abstractions, CQRS & Command Contracts
 
-**Start Commit:** `feat: complete Episode 10 implementation`
+**Start Commit:** `feat: complete Episode-10 implementation`
 
-**End Commit:** `feat: complete Episode 11 implementation`.
+**End Commit:** `feat: complete Episode-11 implementation`.
 
 ------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ Run:
 ``` bash
 dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
 del "src\\BuildingBlocks\\Application\\Class1.cs"
-dotnet sln BuildFlow-V3.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
 ```
 
 The generated `Class1.cs` file is removed because it is only a template
@@ -375,7 +375,7 @@ Run:
 ``` bash
 dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
 del "src\\BuildingBlocks\\Application\\Class1.cs"
-dotnet sln BuildFlow-V3.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
 ```
 
 ## Step 2 --- Add the SharedKernel Reference
@@ -441,7 +441,7 @@ The following commands are specified in Reference Part 10:
 ``` bash
 dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
 del "src\\BuildingBlocks\\Application\\Class1.cs"
-dotnet sln BuildFlow-V3.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
 
 dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
 
