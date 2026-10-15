@@ -2,9 +2,9 @@
 
 ## Application Abstractions, CQRS & Command Contracts
 
-**Start Commit:** `feat: complete Episode-10 implementation`
+**Start Commit:** `feat: complete Episode 10 implementation`
 
-**End Commit:** `feat: complete Episode-11 implementation`.
+**End Commit:** `feat: complete episode-11 implementation`.
 
 ------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ blocks:
 
 This episode defines the command contracts. It does **not** implement
 command handlers, query contracts, or actual application use cases,
-because those implementations are not included in Reference Part 10.
+because they are outside the scope of this episode.
 
 ------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ because those implementations are not included in Reference Part 10.
 ## 2. Why a Separate Project?
 
 Application Abstractions are created as a separate project under the
-`BuildingBlocks` directory.
+`src/BuildingBlocks/Application.Abstractions` directory.
 
 Separating the project helps the compiler enforce Clean Architecture
 boundaries.
@@ -57,52 +57,41 @@ Abstractions.
 
 ## 3. Create the Project
 
-Create the class library under `src/BuildingBlocks/Application`.
+The correct project directory is:
 
-Run the following commands **separately**, not as one combined command:
-
-```
-dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
+``` text
+src/BuildingBlocks/Application.Abstractions/
 ```
 
-The command creates the class library. If the project already exists, the CLI may report that the project directory or files already exist. In that case, do not recreate or overwrite the existing project unnecessarily.
+The project file is:
 
-Next, remove the generated `Class1.cs` template file if it exists.
-
-**Important:** The `del` command is for Windows Command Prompt. Since these commands are being executed in Git Bash, use:
-
-```
-rm -f src/BuildingBlocks/Application/Class1.cs
+``` text
+src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
 ```
 
-Finally, add the project to the solution:
+Run the following commands separately in PowerShell from the repository root. If the project already exists at the specified path, skip the project-creation command and verify the existing files instead:
 
-```
-dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
-```
-
-If the project is already included in the solution, the CLI will report a message similar to:
-
-```
-Solution ... already contains project BuildFlow.Application.Abstractions
+```powershell
+dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application.Abstractions --framework net8.0
+Remove-Item -LiteralPath "src\BuildingBlocks\Application.Abstractions\Class1.cs" -ErrorAction SilentlyContinue
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
 ```
 
-This is expected when the project has already been added. It does not mean that the project needs to be added again.
+The generated `Class1.cs` file is removed because it is only a template file. `Remove-Item` is the PowerShell command used to remove it. The `-ErrorAction SilentlyContinue` option prevents an error if the template file is already absent.
 
-In the terminal output shown in this tutorial, the class library was created successfully, but `del` failed because Git Bash does not recognize that Windows command. The solution command also reported that the project was already included in the solution.
+If the project already exists, do not recreate or overwrite it unnecessarily. If the solution already contains the project, the `dotnet sln ... add` command may report that the project is already included. That message is expected in this situation. Verify the project path and continue; do not add a duplicate project.
 
-**At this point, verify that the project file exists and that the solution already includes it before proceeding to the next step.**
 ## 4. Add the SharedKernel Reference
 
 The Application Abstractions project needs access to SharedKernel types.
 
 Run:
 
-``` bash
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
+```powershell
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
 ```
 
-This implements the dependency direction selected in the reference.
+This establishes the intended dependency direction.
 
 ## 5. Add MediatR
 
@@ -111,8 +100,8 @@ MediatR.
 
 Add the package:
 
-``` bash
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj package MediatR
+```powershell
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj package MediatR
 dotnet build
 ```
 
@@ -138,7 +127,7 @@ Each operation belongs to one of two categories.
 
 A command changes the system's state.
 
-Examples from the reference include:
+Examples include:
 
 -   Creating a document
 -   Approving a review
@@ -156,7 +145,7 @@ A query returns data and does not change the state.
 
 ## 7. Why Separate Commands and Queries?
 
-The reference identifies three reasons.
+There are three main reasons:
 
 ### Different needs
 
@@ -183,8 +172,7 @@ databases. CQRS makes that possible, but does not require it now.
 CQRS does not require two databases or Event Sourcing.
 
 CQRS is a logical separation between read and write models. It can be
-implemented with a single database, which is the approach described in
-the reference.
+implemented with a single database.
 
 > **Interview point:** CQRS separates commands that change state from
 > queries that read it. It does not, by itself, require separate
@@ -196,8 +184,7 @@ the reference.
 
 ## 9. How Should a Command Represent Failure?
 
-Before defining the command contract, the reference considers two
-approaches:
+Before defining the command contract, consider two approaches:
 
 -   Throwing an exception
 -   Returning a result object that explicitly represents success or
@@ -215,7 +202,7 @@ caller can inspect and handle the result rather than relying on
 exceptions to control ordinary application flow.
 
 Using exceptions for normal, expected failure paths can obscure those
-paths and is considered a code smell in the reference.
+paths and is generally considered a code smell.
 
 The decision is not that one library is always correct. The important
 engineering skill is being able to explain why a choice fits the problem
@@ -225,8 +212,8 @@ and when it may not.
 
 Add the package to the Application Abstractions project:
 
-``` bash
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj package FluentResults
+```powershell
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj package FluentResults
 dotnet build
 ```
 
@@ -242,7 +229,7 @@ failure.
 Create the following file:
 
 ``` text
-src/BuildingBlocks/Application/ICommand.cs
+src/BuildingBlocks/Application.Abstractions/ICommand.cs
 ```
 
 Use this implementation:
@@ -300,10 +287,9 @@ This episode defines the contract only; it does not implement a handler.
 
 # Part 5 --- How a Future Command Uses the Contract
 
-## 15. Example from the Reference
+## 15. Example of a Future Command
 
-The reference illustrates how a future command can declare its input
-data and response type:
+A future command can declare its input data and response type as follows:
 
 ``` csharp
 public record CreateDocumentCommand(string Title, Guid ProjectId)
@@ -315,7 +301,7 @@ document. Its contract indicates that the operation returns a `Guid`
 inside a `Result<Guid>`.
 
 The handler is separate from the command and contains the execution
-logic. Implementing that handler is outside the scope of this reference.
+logic. Implementing that handler is outside the scope of this episode.
 
 ------------------------------------------------------------------------
 
@@ -392,66 +378,39 @@ its request. MediatR connects the request to the appropriate handler.
 
 ## Step 1 --- Create the Application Abstractions Project
 
+Run these commands in PowerShell from the repository root only if the project does not already exist. If it already exists, verify its path and skip project creation. If the solution already contains the project, skip the `dotnet sln ... add` command.
+
 Run:
 
-``` bash
-dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
-del "src\\BuildingBlocks\\Application\\Class1.cs"
-dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
+```powershell
+dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application.Abstractions --framework net8.0
+Remove-Item -LiteralPath "src\BuildingBlocks\Application.Abstractions\Class1.cs" -ErrorAction SilentlyContinue
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
 ```
 
 ## Step 2 --- Add the SharedKernel Reference
 
 Run:
 
-``` bash
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
+```powershell
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
 ```
 
-## 3. Create the Project
+## Step 3 --- Add MediatR and Build
 
-Create the class library under `src/BuildingBlocks/Application`.
+Run:
 
-Run the following commands **separately**, not as one combined command:
-
+```powershell
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj package MediatR
+dotnet build
 ```
-dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
-```
-
-The command creates the class library. If the project already exists, the CLI may report that the project directory or files already exist. In that case, do not recreate or overwrite the existing project unnecessarily.
-
-Next, remove the generated `Class1.cs` template file if it exists.
-
-**Important:** The `del` command is for Windows Command Prompt. Since these commands are being executed in Git Bash, use:
-
-```
-rm -f src/BuildingBlocks/Application/Class1.cs
-```
-
-Finally, add the project to the solution:
-
-```
-dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
-```
-
-If the project is already included in the solution, the CLI will report a message similar to:
-
-```
-Solution ... already contains project BuildFlow.Application.Abstractions
-```
-
-This is expected when the project has already been added. It does not mean that the project needs to be added again.
-
-In the terminal output shown in this tutorial, the class library was created successfully, but `del` failed because Git Bash does not recognize that Windows command. The solution command also reported that the project was already included in the solution.
-
-**At this point, verify that the project file exists and that the solution already includes it before proceeding to the next step.**
 
 ## Step 4 --- Add FluentResults and Build
 
 Run:
 
-``` bash
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj package FluentResults
+```powershell
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj package FluentResults
 dotnet build
 ```
 
@@ -460,7 +419,7 @@ dotnet build
 Path:
 
 ``` text
-src/BuildingBlocks/Application/ICommand.cs
+src/BuildingBlocks/Application.Abstractions/ICommand.cs
 ```
 
 Paste the complete implementation from Section 12.
@@ -480,26 +439,25 @@ ICommand<TResponse>
 These contracts express commands through MediatR and represent expected
 success or failure through FluentResults.
 
-This quick build covers only the project, references, packages, and
-command contracts specified in Reference Part 10.
+This quick build covers the project, project reference, packages, and command contracts introduced in this episode.
 
 ------------------------------------------------------------------------
 
 # Part 9 --- Commands Used
 
-The following commands are specified in Reference Part 10:
+The following commands use PowerShell. Run the project-creation and solution-add commands only when needed; skip them if the project already exists and is already included in the solution:
 
-``` bash
-dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application --framework net8.0
-del "src\\BuildingBlocks\\Application\\Class1.cs"
-dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj
+```powershell
+dotnet new classlib --name BuildFlow.Application.Abstractions --output src/BuildingBlocks/Application.Abstractions --framework net8.0
+Remove-Item -LiteralPath "src\BuildingBlocks\Application.Abstractions\Class1.cs" -ErrorAction SilentlyContinue
+dotnet sln BuildFlow-Tutorial.sln add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
 
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj reference src/SharedKernel/BuildFlow.SharedKernel.csproj
 
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj package MediatR
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj package MediatR
 dotnet build
 
-dotnet add src/BuildingBlocks/Application/BuildFlow.Application.Abstractions.csproj package FluentResults
+dotnet add src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj package FluentResults
 dotnet build
 ```
 
@@ -512,8 +470,7 @@ implementations are introduced in this document.
 
 **Start Commit:** `feat: complete Episode 10 implementation`
 
-The reference does not specify the end commit message. Therefore, this
-document does not invent one.
+Record the actual end commit message after completing the episode; do not guess or invent it.
 
 Before publishing this document as the final implementation guide,
 verify the actual end commit in the BuildFlow source repository and
@@ -544,6 +501,4 @@ The central architectural idea is:
 > and represent expected failures through a result contract rather than
 > exceptions used for ordinary control flow.**
 
-The next implementation steps must be defined by the appropriate
-subsequent reference. This document does not assume or add work beyond
-Reference Part 10.
+Continue with the next episode based on the implementation state of the repository. This document does not add work beyond the scope of Episode 11.
