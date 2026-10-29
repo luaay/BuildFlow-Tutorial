@@ -4,7 +4,7 @@
 
 **Goal:** Complete the read-side contracts in `Application.Abstractions` by adding `IQuery<TResponse>`, `IQueryHandler<TQuery, TResponse>`, and the generic `PagedResult<T>`.
 
-**Source of truth:** The published `BuildFlow-V3` repository. Apply these steps to the existing project; do not create a parallel implementation or change the design shown below.
+**Source of truth:** The published `BuildFlow-Tutorial` repository. Apply these steps to the existing project; do not create a parallel implementation or change the design shown below.
 
 ---
 
@@ -31,7 +31,7 @@ This episode adds shared application contracts only. It does not add a concrete 
 
 ## 2. Confirm the Existing Project
 
-Work in the existing BuildFlow-V3 repository and confirm that this project is present:
+Work in the existing BuildFlow-Tutorial repository and confirm that this project is present:
 
 ```text
 src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
@@ -183,7 +183,7 @@ The contract presents the items as a list intended for reading. It communicates 
 
 These values can be derived from the core values. Storing them separately could allow the stored page count or navigation flags to disagree with `TotalCount`, `Page`, or `PageSize`. Computed properties keep the derivation in one place.
 
-**Important:** Keep the implementation aligned with the code above. Do not add extra guards, change `record` to `sealed record`, or otherwise alter the implementation in this episode. The goal is to build the same code as the published BuildFlow-V3 source, not a modified variation.
+**Important:** Keep the implementation aligned with the code above. Do not add extra guards, change `record` to `sealed record`, or otherwise alter the implementation in this episode. The goal is to build the same code as the published BuildFlow-Tutorial source, not a modified variation.
 
 ---
 
@@ -207,12 +207,12 @@ src/
 
 This is a focused view of the files relevant to this episode, not the complete repository structure.
 
-## 8. Build the Actual BuildFlow-V3 Solution
+## 8. Build the Actual BuildFlow-Tutorial Solution
 
-From the root of the **BuildFlow-V3** repository, run:
+From the root of the **BuildFlow-Tutorial** repository, run:
 
 ```powershell
-dotnet build BuildFlow-V3.sln
+dotnet build BuildFlow-Tutorial.sln
 ```
 
 Use the solution file in the repository checkout. Do not substitute a separate tutorial solution for the application source solution.
@@ -234,7 +234,7 @@ If the build fails, inspect the compiler output and confirm that:
 
 These abstractions prepare the application layer to define read operations and represent paginated results. They do not, by themselves, create a visible feature or change an API response. Concrete queries, handlers, data access, and endpoints belong to the relevant feature implementation.
 
-BuildFlow is developed incrementally. Continue from the existing BuildFlow-V3 source and apply each episode's changes in sequence. The objective is to preserve one evolving application that remains consistent with the published source and deployed application—not to build a separate sample that diverges from it.
+BuildFlow is developed incrementally. Continue from the existing BuildFlow-Tutorial source and apply each episode's changes in sequence. The objective is to preserve one evolving application that remains consistent with the published source and deployed application—not to build a separate sample that diverges from it.
 
 ---
 
@@ -245,17 +245,17 @@ BuildFlow is developed incrementally. Continue from the existing BuildFlow-V3 so
 3. **Enforce the query/response relationship.** The handler's generic constraint ties `TQuery` to the corresponding response type.
 4. **Reuse pagination.** Use one generic `PagedResult<T>` rather than creating feature-specific pagination containers.
 5. **Compute derived values.** Do not store `TotalPages` or the navigation flags as duplicate state.
-6. **Follow the source implementation exactly.** Do not introduce extra changes that make the tutorial code diverge from BuildFlow-V3.
+6. **Follow the source implementation exactly.** Do not introduce extra changes that make the tutorial code diverge from BuildFlow-Tutorial.
 7. **Preserve the incremental build.** Make these changes in the existing repository and verify the full solution, rather than creating a parallel application.
 
 ---
 
 # Part 6 — Commands Used
 
-Run these commands from the root of the **BuildFlow-V3** repository:
+Run these commands from the root of the **BuildFlow-Tutorial** repository:
 
 ```powershell
-dotnet build BuildFlow-V3.sln
+dotnet build BuildFlow-Tutorial.sln
 ```
 
 No package-installation command is needed for this episode when the existing project dependencies are already in place.
@@ -286,13 +286,13 @@ The central principle is:
 
 ---
 
-# Part — Quick Build ⚡
+# Part 9 — Quick Build ⚡
 
 This section is self-contained. It includes all three complete files and the build command so you can follow the implementation without searching through earlier sections.
 
 ## Step 1 — Confirm the Existing Project
 
-Confirm that this file exists in the BuildFlow-V3 repository:
+Confirm that this file exists in the BuildFlow-Tutorial repository:
 
 ```text
 src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
@@ -376,10 +376,10 @@ public record PagedResult<T>(
 
 ## Step 5 — Build the Full Solution
 
-From the root of the BuildFlow-V3 repository, run:
+From the root of the BuildFlow-Tutorial repository, run:
 
 ```powershell
-dotnet build BuildFlow-V3.sln
+dotnet build BuildFlow-Tutorial.sln
 ```
 
 Expected result:
@@ -390,7 +390,7 @@ Build succeeded.
 
 ## Step 6 — Confirm Completion
 
-Verify that the three files exist in `src/BuildingBlocks/Application.Abstractions/` and that the full BuildFlow-V3 solution builds successfully.
+Verify that the three files exist in `src/BuildingBlocks/Application.Abstractions/` and that the full BuildFlow-Tutorial solution builds successfully.
 
 The resulting contracts are:
 
