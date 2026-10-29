@@ -2,10 +2,9 @@
 
 ## Command Handlers & BuildingBlocks Architecture
 
-**Start Commit:** `feat: complete Episode 11 implementation`
+**Start Commit:** Verify the actual commit that completed Episode 11 in the BuildFlow-Tutorial repository.
 
-**End Commit:** `feat: complete Episode 12 implementation`.
-
+**End Commit:** Not specified in the available episode documentation. Add the verified commit message after completing and committing this episode.
 
 ------------------------------------------------------------------------
 
@@ -381,7 +380,7 @@ Upfront structure is justified when the plan is known and confirmed—for exampl
 
 Confirm that the solution already contains the Application Abstractions project and that its actual directory matches the current repository structure.
 
-Expected file location from Reference Part 11:
+Expected file location established in Episode 11:
 
 ```text
 src/BuildingBlocks/Application.Abstractions/BuildFlow.Application.Abstractions.csproj
@@ -397,14 +396,34 @@ Create:
 src/BuildingBlocks/Application.Abstractions/ICommandHandler.cs
 ```
 
-Paste the complete implementation from Section 5.
+Paste this complete implementation directly here:
+
+```csharp
+using FluentResults;
+using MediatR;
+
+namespace BuildFlow.Application.Abstractions;
+
+// Command handler without a response value.
+public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>
+    where TCommand : ICommand
+{
+}
+
+// Command handler with a response value.
+public interface ICommandHandler<TCommand, TResponse>
+    : IRequestHandler<TCommand, Result<TResponse>>
+    where TCommand : ICommand<TResponse>
+{
+}
+```
 
 ## Step 3 — Build the Solution
 
 From the repository root, run:
 
 ```powershell
-dotnet build BuildFlow-V3.sln
+dotnet build BuildFlow-Tutorial.sln
 ```
 
 Expected result:
@@ -441,10 +460,10 @@ This episode does not require a package installation or a new project if the App
 The command used to validate the solution is:
 
 ```powershell
-dotnet build BuildFlow-V3.sln
+dotnet build BuildFlow-Tutorial.sln
 ```
 
-No additional CLI commands are prescribed by Reference Part 11. The implementation change is the creation of `ICommandHandler.cs`.
+No additional CLI commands are required for this episode. The implementation change is the creation of `ICommandHandler.cs`.
 
 ------------------------------------------------------------------------
 
@@ -452,7 +471,7 @@ No additional CLI commands are prescribed by Reference Part 11. The implementati
 
 **Start Commit:** Verify the actual commit that completed Episode 11.
 
-**End Commit:** Not specified in Reference Part 11. Do not invent a commit hash or message. After implementation, record the actual commit from the BuildFlow-V3 repository.
+**End Commit:** Not specified in the available episode documentation. Do not invent a commit hash or message. After implementation, record the actual commit from the BuildFlow-Tutorial repository.
 
 ------------------------------------------------------------------------
 
