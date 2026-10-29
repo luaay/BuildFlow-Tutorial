@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "episode-13.md",
+                "file": "episode-14.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "episode-13"
+              "title": "episode-14"
             }
           }
         ]
@@ -187,6 +187,9 @@
   },
   "active": "762240784bf6ad83",
   "lastOpenFiles": [
+    "episode-13.md",
+    "episode-14.md",
+    "New Text Document.txt",
     "episode-10.md",
     "episode-11.md",
     "episode-09-Ar.md",
@@ -203,7 +206,6 @@
     "episode-05.md",
     "episode-07.md",
     "episode-08.md",
-    "New Text Document.txt",
     "episode-08-en.md"
   ]
 }
